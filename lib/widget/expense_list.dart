@@ -2,7 +2,9 @@ import 'package:expense_tracker_app/model/expense_model.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseList extends StatelessWidget {
-  const ExpenseList({super.key, required this.expense});
+  const ExpenseList({super.key, required this.expense, required this.onDelete});
+
+  final void Function(String) onDelete;
 
   final ExpenseModel expense;
   @override

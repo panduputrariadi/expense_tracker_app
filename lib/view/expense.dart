@@ -11,35 +11,41 @@ class Expense extends StatefulWidget {
 
 class _ExpenseState extends State<Expense> {
   final List<ExpenseModel> _expenses = [
-    ExpenseModel(
-      title: 'Groceries',
-      amount: 100.0,
-      date: DateTime.now(),
-      category: ExpenseCategory.food,
-    ),
-    ExpenseModel(
-      title: 'Fuel',
-      amount: 50.0,
-      date: DateTime.now(),
-      category: ExpenseCategory.transport,
-    ),
-    ExpenseModel(
-      title: 'Shoes',
-      amount: 200.0,
-      date: DateTime.now(),
-      category: ExpenseCategory.shopping,
-    ),
-    ExpenseModel(
-      title: 'Lunch',
-      amount: 20.0,
-      date: DateTime.now(),
-      category: ExpenseCategory.food,
-    ),
+    // ExpenseModel(
+    //   title: 'Groceries',
+    //   amount: 100.0,
+    //   date: DateTime.now(),
+    //   category: ExpenseCategory.food,
+    // ),
+    // ExpenseModel(
+    //   title: 'Fuel',
+    //   amount: 50.0,
+    //   date: DateTime.now(),
+    //   category: ExpenseCategory.transport,
+    // ),
+    // ExpenseModel(
+    //   title: 'Shoes',
+    //   amount: 200.0,
+    //   date: DateTime.now(),
+    //   category: ExpenseCategory.shopping,
+    // ),
+    // ExpenseModel(
+    //   title: 'Lunch',
+    //   amount: 20.0,
+    //   date: DateTime.now(),
+    //   category: ExpenseCategory.food,
+    // ),
   ];
 
   void onSaveExpense(ExpenseModel expense) {
     setState(() {
       _expenses.add(expense);
+    });
+  }
+
+  void onDeleteExpense(String id) {
+    setState(() {
+      _expenses.removeWhere((element) => element.id == id);
     });
   }
 
@@ -71,7 +77,10 @@ class _ExpenseState extends State<Expense> {
           // const Text('Expense Tracker'),
           // Text('Expense Tracker uhuy'),
           Expanded(
-            child: ListBoxExpense(expense: _expenses),
+            child: ListBoxExpense(
+              expense: _expenses,
+              onDelete: onDeleteExpense,
+            ),
           ),
         ],
       ),
