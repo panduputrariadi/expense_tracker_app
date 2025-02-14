@@ -2,7 +2,9 @@ import 'package:expense_tracker_app/model/expense_model.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseModal extends StatefulWidget {
-  const ExpenseModal({super.key});
+  const ExpenseModal({super.key, required this.onSaveExpense});
+
+  final void Function(ExpenseModel) onSaveExpense;
   @override
   State<ExpenseModal> createState() => _ExpenseModalState();
 }
@@ -68,13 +70,16 @@ class _ExpenseModalState extends State<ExpenseModal> {
       return;
     }
 
-    final newExpense = ExpenseModel(
-      title: enteredTitle,
-      amount: enteredAmount,
-      date: enteredDate,
-      category: enteredCategory,
+    widget.onSaveExpense(
+      ExpenseModel(
+        title: enteredTitle,
+        amount: enteredAmount,
+        date: enteredDate,
+        category: enteredCategory,
+      ),
     );
-    Navigator.of(context).pop(newExpense);
+
+    Navigator.of(context).pop();
   }
 
   @override

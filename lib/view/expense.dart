@@ -36,11 +36,21 @@ class _ExpenseState extends State<Expense> {
       category: ExpenseCategory.food,
     ),
   ];
+
+  void onSaveExpense(ExpenseModel expense) {
+    setState(() {
+      _expenses.add(expense);
+    });
+  }
+
   void _openModal() {
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          return const ExpenseModal();
+          return ExpenseModal(
+            onSaveExpense: onSaveExpense,
+          );
         });
   }
 
