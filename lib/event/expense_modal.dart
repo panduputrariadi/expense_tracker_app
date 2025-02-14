@@ -32,6 +32,51 @@ class _ExpenseModalState extends State<ExpenseModal> {
     });
   }
 
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Invalid Input'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Okay'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _saveExpense() {
+    final enteredTitle = _titleController.text;
+    final enteredAmount =
+        double.tryParse(_amountController.text.replaceAll(',', '.'));
+    final enteredDate = DateTime.tryParse(_dateController.text);
+    final enteredCategory = _selectedCategory;
+
+    if (enteredTitle.isEmpty || enteredAmount == null || enteredAmount <= 0) {
+      _showErrorDialog('Please enter a valid title and amount');
+      return;
+    }
+    if (enteredDate == null) {
+      _showErrorDialog('Please enter a valid date');
+      return;
+    }
+
+    final newExpense = ExpenseModel(
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: enteredDate,
+      category: enteredCategory,
+    );
+    Navigator.of(context).pop(newExpense);
+  }
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -101,11 +146,7 @@ class _ExpenseModalState extends State<ExpenseModal> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  print(_titleController.text);
-                  print(_amountController.text);
-                  print(_dateController.text);
-                  print(_categoryController.text);
-                  Navigator.of(context).pop();
+                  _saveExpense();
                 },
                 child: const Text('Add Expense'),
               ),
