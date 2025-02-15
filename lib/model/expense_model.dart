@@ -30,3 +30,20 @@ class ExpenseModel {
 
   String get formattedDate => formatSimpleDate;
 }
+
+class ExpenseBucket {
+  const ExpenseBucket({
+    required this.category,
+    required this.expenses,
+  });
+  final ExpenseCategory category;
+  final List<ExpenseModel> expenses;
+
+  double get totalAmount {
+    double sum = 0;
+    for (final expense in expenses) {
+      sum += expense.amount;
+    }
+    return sum;
+  }
+}

@@ -18,6 +18,16 @@ class ListBoxExpense extends StatelessWidget {
       itemBuilder: (context, index) {
         // return ExpenseList(expense: expense[index]);
         return Dismissible(
+            direction: DismissDirection.endToStart,
+            background: Container(
+              alignment: Alignment.centerRight,
+              color: Colors.red,
+              child: const Icon(
+                Icons.delete,
+                color: Colors.white,
+                size: 40,
+              ),
+            ),
             key: ValueKey(expense[index].id),
             onDismissed: (direction) => onDelete(expense[index].id),
             child: ExpenseList(
