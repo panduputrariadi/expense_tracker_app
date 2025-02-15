@@ -36,6 +36,11 @@ class ExpenseBucket {
     required this.category,
     required this.expenses,
   });
+  ExpenseBucket.forCategory(
+      List<ExpenseModel> allExpensesSummary, this.category)
+      : expenses = allExpensesSummary
+            .where((element) => element.category == category)
+            .toList();
   final ExpenseCategory category;
   final List<ExpenseModel> expenses;
 

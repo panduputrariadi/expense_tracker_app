@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/components/chart.dart';
 import 'package:expense_tracker_app/components/list_box_expense.dart';
 import 'package:expense_tracker_app/event/expense_modal.dart';
 import 'package:expense_tracker_app/model/expense_model.dart';
@@ -76,6 +77,9 @@ class _ExpenseState extends State<Expense> {
         children: [
           // const Text('Expense Tracker'),
           // Text('Expense Tracker uhuy'),
+          Chart(
+            expenses: _expenses,
+          ),
           Expanded(
             child: ListBoxExpense(
               expense: _expenses,
